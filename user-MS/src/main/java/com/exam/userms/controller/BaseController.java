@@ -1,9 +1,12 @@
 package com.exam.userms.controller;
 
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
-public interface BaseController <T,ID>{
-    ResponseEntity<List<T>> getAllUsers();
+public interface BaseController <T,V,ID>{
+    ResponseEntity<Page<T>> getAllUsers();
+    ResponseEntity<V> getByUserId(ID userId);
+    ResponseEntity<V> createNewUser(V newUser);
 }
