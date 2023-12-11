@@ -5,11 +5,8 @@ import com.exam.userms.entity.User;
 import com.exam.userms.model.UserDTO;
 import com.exam.userms.service.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,8 +24,8 @@ public class UserControllerImpl implements BaseController<User, UserDTO, Long> {
 
     @GetMapping
     @Override
-    public ResponseEntity<Page<User>> getAllUsers() {
-        Page<User> userList = baseService.getAllUsersService(1);
+    public ResponseEntity<List<User>> getAllUsers() {
+      List<User> userList = baseService.getAllUsersService();
         return new ResponseEntity<>(userList, HttpStatus.OK);
     }
 

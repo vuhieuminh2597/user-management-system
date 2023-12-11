@@ -11,5 +11,4 @@ public interface BaseService {
 
     UserDTO createNewUserService(UserDTO newUser);
 
-    Page<User> getAllUsersService(Integer pageNo);
 }

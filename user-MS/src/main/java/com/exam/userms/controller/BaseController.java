@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 public interface BaseController <T,V,ID>{
-    ResponseEntity<Page<T>> getAllUsers();
+    ResponseEntity<List<T>> getAllUsers();
     ResponseEntity<V> getByUserId(ID userId);
     ResponseEntity<V> createNewUser(V newUser);
 }

@@ -35,9 +35,4 @@ public class UserServiceImpl implements BaseService {
         return mapByUser.mapToUserDTO(user);
     }
 
-    @Override
-    public Page<User> getAllUsersService(Integer pageNo) {
-        Pageable pageable = PageRequest.of(pageNo - 1,6);
-        return userRepository.findAll(pageable);
-    }
 }
