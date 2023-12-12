@@ -11,4 +11,5 @@ public interface BaseService {
 
     UserDTO createNewUserService(UserDTO newUser);
 
+    UserDTO updateUser(UserDTO user);
 }

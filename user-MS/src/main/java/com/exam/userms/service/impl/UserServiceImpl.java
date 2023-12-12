@@ -1,6 +1,7 @@
 package com.exam.userms.service.impl;
 
 import com.exam.userms.entity.User;
+import com.exam.userms.exception.ResourceNotFoundException;
 import com.exam.userms.mapper.MapByUser;
 import com.exam.userms.model.UserDTO;
 import com.exam.userms.repository.UserRepository;
@@ -26,7 +27,7 @@ public class UserServiceImpl implements BaseService {
     @Override
     public Page<User> getAllUsersService(Integer page,Integer size) {
         Pageable pageable = PageRequest.of(page,size);
-        Page<User> reusult = userRepository.findAll(pageable);
+        Page<User> reusult = userRepository.findAllUser(pageable);
         return reusult;
     }
 
@@ -35,6 +36,15 @@ public class UserServiceImpl implements BaseService {
         User userMap = mapByUser.mapToUser(newUser);
         User user = userRepository.save(userMap);
         return mapByUser.mapToUserDTO(user);
+    }
+
+    @Override
+    public UserDTO updateUser(UserDTO user) {
+        User userEntity = userRepository.findById(user.getId()).orElseThrow(() ->
+                new ResourceNotFoundException("User was not found with given id: " + user.getId()));
+        User userMap = mapByUser.mapToUser(user);
+        userRepository.save(userMap);
+        return mapByUser.mapToUserDTO(userMap);
     }
 
 }

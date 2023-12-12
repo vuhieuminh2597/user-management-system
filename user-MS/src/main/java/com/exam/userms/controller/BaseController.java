@@ -9,4 +9,5 @@ public interface BaseController <T,V,ID>{
     ResponseEntity<Page<T>> getAllUsers(Integer page,Integer size);
     ResponseEntity<V> getByUserId(ID userId);
     ResponseEntity<V> createNewUser(V newUser);
+    ResponseEntity<V> putUpdateUser(V user);
 }

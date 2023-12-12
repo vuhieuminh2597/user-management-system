@@ -27,8 +27,8 @@ public class UserControllerImpl implements BaseController<User, UserDTO, Long> {
     @Override
     public ResponseEntity<Page<User>> getAllUsers(@RequestParam(name = "page", defaultValue = "0") Integer page,
                                                   @RequestParam(name = "size", defaultValue = "6") Integer size) {
-      Page<User> userList = baseService.getAllUsersService(page - 1,size);
-        return new ResponseEntity<>(userList, HttpStatus.OK);
+      Page<User> userPage = baseService.getAllUsersService(page - 1,size);
+        return new ResponseEntity<>(userPage, HttpStatus.OK);
     }
 
 
@@ -42,5 +42,12 @@ public class UserControllerImpl implements BaseController<User, UserDTO, Long> {
     public ResponseEntity<UserDTO> createNewUser(@RequestBody UserDTO newUser) {
         UserDTO userDTO = baseService.createNewUserService(newUser);
         return new ResponseEntity<>(userDTO, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/update")
+    @Override
+    public ResponseEntity<UserDTO> putUpdateUser(@RequestBody UserDTO user) {
+        UserDTO userDTO = baseService.updateUser(user);
+        return new ResponseEntity<>(userDTO,HttpStatus.OK);
     }
 }
