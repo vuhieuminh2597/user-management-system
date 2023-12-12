@@ -7,7 +7,7 @@ import org.springframework.data.domain.Page;
 import java.util.List;
 
 public interface BaseService {
-    List<User> getAllUsersService();
+    Page<User> getAllUsersService(Integer page,Integer size);
 
     UserDTO createNewUserService(UserDTO newUser);
 

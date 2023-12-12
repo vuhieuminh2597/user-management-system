@@ -5,6 +5,7 @@ import com.exam.userms.entity.User;
 import com.exam.userms.model.UserDTO;
 import com.exam.userms.service.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,8 +25,9 @@ public class UserControllerImpl implements BaseController<User, UserDTO, Long> {
 
     @GetMapping
     @Override
-    public ResponseEntity<List<User>> getAllUsers() {
-      List<User> userList = baseService.getAllUsersService();
+    public ResponseEntity<Page<User>> getAllUsers(@RequestParam(name = "page", defaultValue = "0") Integer page,
+                                                  @RequestParam(name = "size", defaultValue = "6") Integer size) {
+      Page<User> userList = baseService.getAllUsersService(page - 1,size);
         return new ResponseEntity<>(userList, HttpStatus.OK);
     }
 

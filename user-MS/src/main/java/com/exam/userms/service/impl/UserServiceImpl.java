@@ -24,8 +24,10 @@ public class UserServiceImpl implements BaseService {
     }
 
     @Override
-    public List<User> getAllUsersService() {
-        return userRepository.findAllUser();
+    public Page<User> getAllUsersService(Integer page,Integer size) {
+        Pageable pageable = PageRequest.of(page,size);
+        Page<User> reusult = userRepository.findAll(pageable);
+        return reusult;
     }
 
     @Override
