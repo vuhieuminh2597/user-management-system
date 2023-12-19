@@ -14,6 +14,7 @@ public interface UserRepository extends JpaRepository<User,Long> {
 
     @Query("SELECT MAX(U.id) FROM User U")
     Long getLargestId ();
-    @Query("SELECT U FROM User U ORDER BY U.id")
-    Page<User> findAllUser(Pageable pageable);
+
+    @Query("SELECT u FROM User u ORDER BY u.id")
+    Page<User> findAllBy(Pageable pageable);
 }

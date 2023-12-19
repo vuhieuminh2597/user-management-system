@@ -1,9 +1,11 @@
 package com.exam.userms.service.impl;
 
+import com.exam.userms.builder.UserPageBuilder;
 import com.exam.userms.entity.User;
 import com.exam.userms.exception.ResourceNotFoundException;
 import com.exam.userms.mapper.MapByUser;
 import com.exam.userms.model.UserDTO;
+import com.exam.userms.model.UserPage;
 import com.exam.userms.repository.UserRepository;
 import com.exam.userms.service.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,17 +20,26 @@ import java.util.List;
 public class UserServiceImpl implements BaseService {
     private UserRepository userRepository;
     private MapByUser mapByUser;
+
     @Autowired
-    public UserServiceImpl(UserRepository userRepository,MapByUser mapByUser) {
+    public UserServiceImpl(UserRepository userRepository, MapByUser mapByUser) {
         this.userRepository = userRepository;
         this.mapByUser = mapByUser;
     }
 
     @Override
-    public Page<User> getAllUsersService(Integer page,Integer size) {
-        Pageable pageable = PageRequest.of(page,size);
-        Page<User> reusult = userRepository.findAllUser(pageable);
-        return reusult;
+    public UserPage getAllUsersService(Integer page, Integer size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<User> result = userRepository.findAllBy(pageable);
+        return new UserPageBuilder()
+                .setPage(page + 1)
+                .setData(result.getContent())
+                .setNext(page, size, result.getTotalElements())
+                .setPrevious(page + 1, size, result.getTotalElements())
+                .setSize(size)
+                .setTotalPages(result.getTotalPages())
+                .setTotalElement(result.getTotalElements())
+                .build();
     }
 
     @Override

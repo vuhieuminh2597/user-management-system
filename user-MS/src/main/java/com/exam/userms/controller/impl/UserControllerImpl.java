@@ -1,8 +1,10 @@
 package com.exam.userms.controller.impl;
 
+import com.exam.userms.builder.UserPageBuilder;
 import com.exam.userms.controller.BaseController;
 import com.exam.userms.entity.User;
 import com.exam.userms.model.UserDTO;
+import com.exam.userms.model.UserPage;
 import com.exam.userms.service.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -25,9 +27,10 @@ public class UserControllerImpl implements BaseController<User, UserDTO, Long> {
 
     @GetMapping
     @Override
-    public ResponseEntity<Page<User>> getAllUsers(@RequestParam(name = "page", defaultValue = "0") Integer page,
-                                                  @RequestParam(name = "size", defaultValue = "6") Integer size) {
-      Page<User> userPage = baseService.getAllUsersService(page - 1,size);
+    public ResponseEntity<UserPage> getAllUsers(@RequestParam(name = "page", defaultValue = "0") Integer page,
+                                                  @RequestParam(name = "size", defaultValue = "10") Integer size) {
+      UserPage userPage = baseService.getAllUsersService(page - 1,size);
+
         return new ResponseEntity<>(userPage, HttpStatus.OK);
     }
 
